@@ -123,6 +123,8 @@ const ScheduleDatabaseContext = createContext<ScheduleDatabaseContextType | unde
 
 // Schedule Database Provider Component
 const ScheduleDatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const API_BASE_URL = 'https://servaura-api.onrender.com';
+
   // Consultations state
   const [consultations, setConsultations] = useState<ConsultationRequest[]>([]);
   const [consultationsLoading, setConsultationsLoading] = useState(true);
@@ -201,7 +203,7 @@ const ScheduleDatabaseProvider: React.FC<{ children: ReactNode }> = ({ children 
       setConsultationsLoading(true);
       setConsultationsError(null);
 
-      const response = await fetch('/api/consultations', {
+      const response = await fetch(`${API_BASE_URL}/api/consultations`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -253,7 +255,7 @@ const ScheduleDatabaseProvider: React.FC<{ children: ReactNode }> = ({ children 
       setConsultationsLoading(true);
       setConsultationsError(null);
 
-      const response = await fetch('/api/consultations');
+      const response = await fetch(`${API_BASE_URL}/api/consultations`);
       
       if (!response.ok) {
         throw new Error(`Failed to fetch consultations: ${response.status}`);
@@ -277,7 +279,7 @@ const ScheduleDatabaseProvider: React.FC<{ children: ReactNode }> = ({ children 
       setAvailabilityLoading(true);
       setAvailabilityError(null);
 
-      const response = await fetch('/api/availability');
+      const response = await fetch(`${API_BASE_URL}/api/availability`);
       
       if (!response.ok) {
         throw new Error(`Failed to fetch availability: ${response.status}`);
@@ -301,7 +303,7 @@ const ScheduleDatabaseProvider: React.FC<{ children: ReactNode }> = ({ children 
       setConsultationsLoading(true);
       setConsultationsError(null);
 
-      const response = await fetch(`/api/consultations/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/consultations/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -345,7 +347,7 @@ const ScheduleDatabaseProvider: React.FC<{ children: ReactNode }> = ({ children 
       setConsultationsLoading(true);
       setConsultationsError(null);
 
-      const response = await fetch(`/api/consultations/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/consultations/${id}`, {
         method: 'DELETE',
       });
       
