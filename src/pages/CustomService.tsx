@@ -291,13 +291,14 @@ const CustomService: React.FC = () => {
             )}
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                variant="primary" 
-                onClick={proceedToFrequency}
-                className={selectedServices.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}
-              >
-                Continue to Frequency Selection
-              </Button>
+              <Link to="/servicefrequency">
+                <Button 
+                  variant="primary" 
+                  className={selectedServices.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}
+                >
+                  Continue to Frequency Selection
+                </Button>
+              </Link>
               <Link to="/plans">
                 <Button variant="secondary">View Standard Plans</Button>
               </Link>
@@ -308,5 +309,4 @@ const CustomService: React.FC = () => {
     </>
   );
 };
-
 export default CustomService;
