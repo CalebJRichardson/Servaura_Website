@@ -7,10 +7,7 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
   esbuild: {
-    target: 'es2020',
-    // Remove the loader and include/exclude - let Vite handle it automatically
-  },
-  build: {
-    target: 'es2020'
+    include: /\.(ts|tsx|js|jsx)$/,
+    exclude: [],
   }
 });

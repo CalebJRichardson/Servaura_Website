@@ -324,7 +324,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
   // ===== API FUNCTIONS =====
 
   const createApiClient = () => {
-    const request = async <T>(
+    const request = async <T,>(
       endpoint: string,
       options: RequestInit = {}
     ): Promise<T> => {
