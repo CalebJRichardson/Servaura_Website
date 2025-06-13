@@ -7,4 +7,12 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  esbuild: {
+    loader: 'tsx',
+    include: /.*\.(ts|tsx)$/,
+    exclude: []
+  },
+  build: {
+    target: 'es2015'
+  }
 });
