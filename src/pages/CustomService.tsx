@@ -291,7 +291,7 @@ const CustomService: React.FC = () => {
             )}
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/servicefrequency">
+              <Link to="/service-frequency">
                 <Button 
                   variant="primary" 
                   className={selectedServices.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}
