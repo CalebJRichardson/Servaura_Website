@@ -323,6 +323,31 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   // ===== API FUNCTIONS =====
 
+  const createApiClient = () => {
+    const request = async <T>(
+      endpoint: string,
+      options: RequestInit = {}
+    ): Promise<T> => {
+      const response = await fetch(endpoint, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...options.headers,
+        },
+        ...options,
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      }
+
+      return response.json();
+    };
+
+    return { request };
+  };
+
+  const apiClient = createApiClient();
+
   const fetchServices = async () => {
     try {
       setServicesLoading(true);
