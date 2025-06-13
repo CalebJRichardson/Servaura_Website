@@ -13,6 +13,38 @@ import ServiceFrequency from './pages/ServiceFrequency';
 import { ThemeProvider } from './context/ThemeContext';
 import './index.css';
 
+// ============================================================================
+// API CONFIGURATION
+// ============================================================================
+const API_URL = import.meta.env.VITE_API_URL || 'https://servaura-api.onrender.com';
+const API_TIMEOUT = 10000; // 10 seconds
+
+// ============================================================================
+// API CLIENT HELPER
+// ============================================================================
+const createApiClient = () => {
+  const request = async <T,>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<T> => {
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+      ...options,
+    });
+
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  };
+
+  return { request };
+};
+
 // ===== TYPE DEFINITIONS =====
 
 export interface Service {
@@ -353,7 +385,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setServicesLoading(true);
       setServicesError(null);
 
-      const response = await fetch('/api/services');
+      const response = await fetch('${API_URL}/api/services');
       
       if (!response.ok) {
         throw new Error(`Failed to fetch services: ${response.status}`);
@@ -376,7 +408,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setFrequencyOptionsLoading(true);
       setFrequencyOptionsError(null);
 
-      const response = await fetch('/api/service-frequency-options');
+      const response = await fetch('${API_URL}/api/service-frequency-options');
       
       if (!response.ok) {
         throw new Error(`Failed to fetch service frequency options: ${response.status}`);
@@ -399,7 +431,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setCustomerProfilesLoading(true);
       setCustomerProfilesError(null);
 
-      const response = await fetch('/api/customer-profiles');
+      const response = await fetch('${API_URL}/api/customer-profiles');
       
       if (!response.ok) {
         throw new Error(`Failed to fetch customer profiles: ${response.status}`);
@@ -421,7 +453,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setServiceRequestsLoading(true);
       setServiceRequestsError(null);
 
-      const response = await fetch('/api/service-requests');
+      const response = await fetch('${API_URL}/api/service-requests');
       
       if (!response.ok) {
         throw new Error(`Failed to fetch service requests: ${response.status}`);
@@ -443,7 +475,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setConsultationsLoading(true);
       setConsultationsError(null);
 
-      const response = await fetch('/api/consultations');
+      const response = await fetch('${API_URL}/api/consultations');
       
       if (!response.ok) {
         throw new Error(`Failed to fetch consultations: ${response.status}`);
@@ -465,7 +497,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setServicesLoading(true);
       setServicesError(null);
 
-      const response = await fetch('/api/services', {
+      const response = await fetch('${API_URL}/api/services', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -509,7 +541,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setCustomerProfilesLoading(true);
       setCustomerProfilesError(null);
 
-      const response = await fetch('/api/customer-profiles', {
+      const response = await fetch('${API_URL}/api/customer-profiles', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -553,7 +585,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setServiceRequestsLoading(true);
       setServiceRequestsError(null);
 
-      const response = await fetch('/api/service-requests', {
+      const response = await fetch('${API_URL}/api/service-requests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -599,7 +631,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setConsultationsLoading(true);
       setConsultationsError(null);
 
-      const response = await fetch('/api/consultations', {
+      const response = await fetch('${API_URL}/api/consultations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -645,7 +677,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setServiceRequestsLoading(true);
       setServiceRequestsError(null);
 
-      const response = await fetch(`/api/service-requests/${id}`, {
+      const response = await fetch(`${API_URL}/api/service-requests/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -688,7 +720,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({ children }
       setConsultationsLoading(true);
       setConsultationsError(null);
 
-      const response = await fetch(`/api/consultations/${id}`, {
+      const response = await fetch(`${API_URL}/api/consultations/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
